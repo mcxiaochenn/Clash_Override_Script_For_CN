@@ -116,7 +116,7 @@ function main(config) {
       ...groupBaseOption,
       "name": "节点选择",
       "type": "select",
-      "proxies": ["自动选择", "香港", "台湾", "日本", "新加坡", "美国", "英国", "其它地区", "全部节点", "直连"],
+      "proxies": ["自动选择", "香港", "台湾", "日本", "新加坡", "美国", "英国", "其它地区", "全部节点", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg"
     },
     {
@@ -203,28 +203,28 @@ function main(config) {
       ...groupBaseOption,
       "name": "电报消息",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "直连"],
+      "proxies": ["节点选择", "自动选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/telegram.svg"
     },
     {
       ...groupBaseOption,
       "name": "谷歌服务",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "直连"],
+      "proxies": ["节点选择", "自动选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/google.svg"
     },
     {
       ...groupBaseOption,
       "name": "微软服务",
       "type": "select",
-      "proxies": ["直连", "节点选择", "自动选择"],
+      "proxies": ["DIRECT", "节点选择", "自动选择"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/microsoft.svg"
     },
     {
       ...groupBaseOption,
       "name": "苹果服务",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "直连"],
+      "proxies": ["节点选择", "自动选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/apple.svg"
     },
     {
@@ -245,7 +245,7 @@ function main(config) {
       ...groupBaseOption,
       "name": "漏网之鱼",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "直连"],
+      "proxies": ["节点选择", "自动选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
     }
   ];
