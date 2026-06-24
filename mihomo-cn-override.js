@@ -3,7 +3,7 @@
 // 基于 Loyalsoldier/clash-rules 的覆写脚本
 // 适用于 mihomo (Clash Meta) 内核 + Clash Verge Rev
 //
-// 版本：v2026.06.24.d2
+// 版本：v2026.06.24.d1
 // 作者：辰渊尘(ChenDusk) — https://blog.mcxiaochen.top
 // 辅助：OpenCode + MiMo V2.5 Pro
 // ============================================================================
