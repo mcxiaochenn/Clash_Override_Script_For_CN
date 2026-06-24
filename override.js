@@ -11,54 +11,63 @@ const ruleProviderCommon = {
 
 // 规则集
 const ruleProviders = {
+  // 广告域名拦截
   "reject": {
     ...ruleProviderCommon,
     "behavior": "domain",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt",
     "path": "./ruleset/reject.yaml"
   },
+  // 私有网络域名（局域网、路由器等）
   "private": {
     ...ruleProviderCommon,
     "behavior": "domain",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt",
     "path": "./ruleset/private.yaml"
   },
+  // 国内可直连域名
   "direct": {
     ...ruleProviderCommon,
     "behavior": "domain",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt",
     "path": "./ruleset/direct.yaml"
   },
+  // 需要代理的域名（GFW 列表补充）
   "proxy": {
     ...ruleProviderCommon,
     "behavior": "domain",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
     "path": "./ruleset/proxy.yaml"
   },
+  // GFW 封锁域名
   "gfw": {
     ...ruleProviderCommon,
     "behavior": "domain",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
     "path": "./ruleset/gfw.yaml"
   },
+  // Telegram IP 地址段
   "telegramcidr": {
     ...ruleProviderCommon,
     "behavior": "ipcidr",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt",
     "path": "./ruleset/telegramcidr.yaml"
   },
+  // 中国大陆 IP 地址段
   "cncidr": {
     ...ruleProviderCommon,
     "behavior": "ipcidr",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt",
     "path": "./ruleset/cncidr.yaml"
   },
+  // 局域网及保留 IP 地址段
   "lancidr": {
     ...ruleProviderCommon,
     "behavior": "ipcidr",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt",
     "path": "./ruleset/lancidr.yaml"
   },
+  // 常见应用程序直连规则（如 Windows Update、iCloud 等）
   "applications": {
     ...ruleProviderCommon,
     "behavior": "classical",
