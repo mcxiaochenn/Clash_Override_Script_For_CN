@@ -1,9 +1,10 @@
 // ============================================================================
 // Clash Override Script For CN
-// 基于 Loyalsoldier/clash-rules 的覆写脚本
+// 基于 mcxiaochenn/clash-rules-cn 的覆写脚本
 // 适用于 mihomo (Clash Meta) 内核 + Clash Verge Rev
 //
-// 版本：v2026.06.24.r2
+// 版本：v2026.06.24.r3
+// 规则来源：mcxiaochenn/clash-rules-cn
 // 作者：辰渊尘(ChenDusk) — https://blog.mcxiaochen.top
 // 辅助：OpenCode + MiMo V2.5 Pro
 // ============================================================================
@@ -82,120 +83,102 @@ const directDomains = [
 // 规则集通用配置
 const ruleProviderCommon = {
   "type": "http",
-  "format": "text",
-  "interval": 86400
-};
-
-// kelee.one 规则集通用配置（YAML 格式）
-const keleeRuleProviderCommon = {
-  "type": "http",
   "format": "yaml",
-  "behavior": "classical",
   "interval": 86400
 };
 
-// 规则集
+// 规则集（来源：mcxiaochenn/clash-rules-cn）
 const ruleProviders = {
-  // 广告域名拦截
-  "reject": {
+  // 中国大陆直连域名
+  "direct-domain": {
     ...ruleProviderCommon,
     "behavior": "domain",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt",
-    "path": "./ruleset/reject.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/direct-domain.yaml",
+    "path": "./ruleset/direct-domain.yaml"
   },
-  // 私有网络域名（局域网、路由器等）
-  "private": {
+  // 需要代理的域名
+  "proxy-domain": {
     ...ruleProviderCommon,
     "behavior": "domain",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt",
-    "path": "./ruleset/private.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/proxy-domain.yaml",
+    "path": "./ruleset/proxy-domain.yaml"
   },
-  // 国内可直连域名
-  "direct": {
+  // 广告及恶意域名
+  "reject-domain": {
     ...ruleProviderCommon,
     "behavior": "domain",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt",
-    "path": "./ruleset/direct.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/reject-domain.yaml",
+    "path": "./ruleset/reject-domain.yaml"
   },
-  // 需要代理的域名（GFW 列表补充）
-  "proxy": {
+  // 私有网络专用域名
+  "private-domain": {
     ...ruleProviderCommon,
     "behavior": "domain",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
-    "path": "./ruleset/proxy.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/private-domain.yaml",
+    "path": "./ruleset/private-domain.yaml"
   },
-  // GFW 封锁域名
-  "gfw": {
+  // Apple 在中国大陆可直连的域名
+  "apple-direct": {
     ...ruleProviderCommon,
     "behavior": "domain",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
-    "path": "./ruleset/gfw.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/apple-direct.yaml",
+    "path": "./ruleset/apple-direct.yaml"
   },
-  // Telegram IP 地址段
-  "telegramcidr": {
+  // iCloud 域名列表
+  "icloud-domain": {
+    ...ruleProviderCommon,
+    "behavior": "domain",
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/icloud-domain.yaml",
+    "path": "./ruleset/icloud-domain.yaml"
+  },
+  // GFWList 域名列表
+  "gfwlist-domain": {
+    ...ruleProviderCommon,
+    "behavior": "domain",
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/gfwlist-domain.yaml",
+    "path": "./ruleset/gfwlist-domain.yaml"
+  },
+  // 非中国大陆使用的顶级域名
+  "non-china-tld": {
+    ...ruleProviderCommon,
+    "behavior": "domain",
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/non-china-tld.yaml",
+    "path": "./ruleset/non-china-tld.yaml"
+  },
+  // 需要直连的常见软件列表
+  "common-software": {
+    ...ruleProviderCommon,
+    "behavior": "domain",
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/common-software.yaml",
+    "path": "./ruleset/common-software.yaml"
+  },
+  // Telegram 使用的 IP 地址
+  "telegram-ip": {
     ...ruleProviderCommon,
     "behavior": "ipcidr",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt",
-    "path": "./ruleset/telegramcidr.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/telegram-ip.yaml",
+    "path": "./ruleset/telegram-ip.yaml"
   },
-  // 中国大陆 IP 地址段
-  "cncidr": {
+  // 局域网 IP 及保留 IP 地址
+  "lan-reserved-ip": {
     ...ruleProviderCommon,
     "behavior": "ipcidr",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt",
-    "path": "./ruleset/cncidr.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/lan-reserved-ip.yaml",
+    "path": "./ruleset/lan-reserved-ip.yaml"
   },
-  // 局域网及保留 IP 地址段
-  "lancidr": {
+  // 中国大陆 IP 地址
+  "china-ip": {
     ...ruleProviderCommon,
     "behavior": "ipcidr",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt",
-    "path": "./ruleset/lancidr.yaml"
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/china-ip.yaml",
+    "path": "./ruleset/china-ip.yaml"
   },
-  // 常见应用程序直连规则（如 Windows Update、iCloud 等）
-  "applications": {
+  // AI 服务相关域名
+  "ai-domain": {
     ...ruleProviderCommon,
-    "behavior": "classical",
-    "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt",
-    "path": "./ruleset/applications.yaml"
-  },
-
-  // ---- kelee.one 规则集 ----
-  // AI 服务规则
-  "kelee-ai": {
-    ...keleeRuleProviderCommon,
-    "url": "https://kelee.one/Tool/Clash/Rule/AI.yaml",
-    "path": "./ruleset/kelee-ai.yaml"
-  },
-  // TikTok 规则
-  "kelee-tiktok": {
-    ...keleeRuleProviderCommon,
-    "url": "https://kelee.one/Tool/Clash/Rule/TikTok.yaml",
-    "path": "./ruleset/kelee-tiktok.yaml"
-  },
-  // Speedtest 国际版规则
-  "kelee-speedtest": {
-    ...keleeRuleProviderCommon,
-    "url": "https://kelee.one/Tool/Clash/Rule/SpeedtestInternational.yaml",
-    "path": "./ruleset/kelee-speedtest.yaml"
-  },
-  // 游戏规则
-  "kelee-game": {
-    ...keleeRuleProviderCommon,
-    "url": "https://kelee.one/Tool/Clash/Rule/Game.yaml",
-    "path": "./ruleset/kelee-game.yaml"
-  },
-  // Netflix 规则
-  "kelee-netflix": {
-    ...keleeRuleProviderCommon,
-    "url": "https://rule.kelee.one/Clash/Netflix.yaml",
-    "path": "./ruleset/kelee-netflix.yaml"
-  },
-  // ESET 中国规则
-  "kelee-eset": {
-    ...keleeRuleProviderCommon,
-    "url": "https://kelee.one/Tool/Clash/Rule/ESET_China.yaml",
-    "path": "./ruleset/kelee-eset.yaml"
+    "behavior": "domain",
+    "url": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/ai-domain.yaml",
+    "path": "./ruleset/ai-domain.yaml"
   }
 };
 
@@ -215,286 +198,24 @@ const rules = [
   ...directDomains.map(domain => `DOMAIN-SUFFIX,${domain},DIRECT`),
   ...directIPs.map(ip => `IP-CIDR,${ip},DIRECT,no-resolve`),
 
-  // ===== Apple 证书验证（OCSP）=====
-  "DOMAIN,developer.apple.com,节点选择",
-  "DOMAIN-SUFFIX,digicert.com,节点选择",
-  "DOMAIN,ocsp.apple.com,节点选择",
-  "DOMAIN,ocsp.comodoca.com,节点选择",
-  "DOMAIN,ocsp.usertrust.com,节点选择",
-  "DOMAIN,ocsp.sectigo.com,节点选择",
-  "DOMAIN,ocsp.verisign.net,节点选择",
+  // ===== clash-rules-cn 规则集 =====
+  "RULE-SET,common-software,全局直连",
+  "RULE-SET,private-domain,全局直连",
+  "RULE-SET,reject-domain,广告过滤",
+  "RULE-SET,icloud-domain,苹果服务",
+  "RULE-SET,apple-direct,苹果服务",
+  "RULE-SET,proxy-domain,节点选择",
+  "RULE-SET,gfwlist-domain,节点选择",
+  "RULE-SET,non-china-tld,节点选择",
+  "RULE-SET,direct-domain,全局直连",
+  "RULE-SET,lan-reserved-ip,全局直连,no-resolve",
+  "RULE-SET,china-ip,全局直连,no-resolve",
+  "RULE-SET,telegram-ip,电报消息,no-resolve",
+  "RULE-SET,ai-domain,AI",
 
-  // ===== Apple 服务（需要代理）=====
-  "DOMAIN-SUFFIX,apple-dns.net,节点选择",
-  "DOMAIN,testflight.apple.com,节点选择",
-  "DOMAIN,sandbox.itunes.apple.com,节点选择",
-  "DOMAIN,itunes.apple.com,节点选择",
-  "DOMAIN-SUFFIX,apps.apple.com,节点选择",
-  "DOMAIN-SUFFIX,blobstore.apple.com,节点选择",
-  "DOMAIN,cvws.icloud-content.com,节点选择",
-
-  // ===== Apple CDN 直连 =====
-  "DOMAIN-SUFFIX,mzstatic.com,苹果服务",
-  "DOMAIN-SUFFIX,icloud.com,苹果服务",
-  "DOMAIN-SUFFIX,icloud-content.com,苹果服务",
-  "DOMAIN-SUFFIX,me.com,苹果服务",
-  "DOMAIN-SUFFIX,aaplimg.com,苹果服务",
-  "DOMAIN-SUFFIX,cdn20.com,苹果服务",
-  "DOMAIN-SUFFIX,cdn-apple.com,苹果服务",
-  "DOMAIN-SUFFIX,akadns.net,苹果服务",
-  "DOMAIN-SUFFIX,akamaiedge.net,苹果服务",
-  "DOMAIN-SUFFIX,edgekey.net,苹果服务",
-  "DOMAIN-SUFFIX,mwcloudcdn.com,苹果服务",
-  "DOMAIN-SUFFIX,mwcname.com,苹果服务",
-  "DOMAIN-SUFFIX,apple.com,苹果服务",
-  "DOMAIN-SUFFIX,apple-cloudkit.com,苹果服务",
-  "DOMAIN-SUFFIX,apple-mapkit.com,苹果服务",
-
-  // ===== Google CN 服务 =====
-  "DOMAIN-SUFFIX,googleapis.cn,节点选择",
-  "DOMAIN-SUFFIX,xn--ngstr-lra8j.com,节点选择",
-  "DOMAIN-SUFFIX,gstatic.com,节点选择",
-
-  // ===== 安全浏览直连 =====
-  "DOMAIN,safebrowsing.urlsec.qq.com,全局直连",
-  "DOMAIN,safebrowsing.googleapis.com,全局直连",
-
-  // ===== Microsoft 服务 =====
-  "DOMAIN,cn.bing.com,全局直连",
-  "DOMAIN-SUFFIX,microsoft.com,微软服务",
-  "DOMAIN-SUFFIX,microsoftonline.com,微软服务",
-  "DOMAIN-SUFFIX,office.com,微软服务",
-  "DOMAIN-SUFFIX,office365.com,微软服务",
-  "DOMAIN-KEYWORD,officecdn,微软服务",
-  "DOMAIN-SUFFIX,live.com,微软服务",
-  "DOMAIN-SUFFIX,live.net,微软服务",
-  "DOMAIN-SUFFIX,hotmail.com,微软服务",
-  "DOMAIN-SUFFIX,bing.com,微软服务",
-  "DOMAIN-SUFFIX,outlook.com,微软服务",
-  "DOMAIN-SUFFIX,onedrive.com,微软服务",
-  "DOMAIN-SUFFIX,onenote.com,微软服务",
-  "DOMAIN-SUFFIX,msedge.net,微软服务",
-
-  // ===== 国内域名直连 =====
-  "DOMAIN-SUFFIX,126.com,DIRECT",
-  "DOMAIN-SUFFIX,126.net,DIRECT",
-  "DOMAIN-SUFFIX,127.net,DIRECT",
-  "DOMAIN-SUFFIX,163.com,DIRECT",
-  "DOMAIN-SUFFIX,360buyimg.com,DIRECT",
-  "DOMAIN-SUFFIX,36kr.com,DIRECT",
-  "DOMAIN-SUFFIX,acfun.tv,DIRECT",
-  "DOMAIN-SUFFIX,air-matters.com,DIRECT",
-  "DOMAIN-SUFFIX,aixifan.com,DIRECT",
-  "DOMAIN-KEYWORD,alicdn,DIRECT",
-  "DOMAIN-KEYWORD,alipay,DIRECT",
-  "DOMAIN-KEYWORD,taobao,DIRECT",
-  "DOMAIN-SUFFIX,amap.com,DIRECT",
-  "DOMAIN-SUFFIX,autonavi.com,DIRECT",
-  "DOMAIN-KEYWORD,baidu,DIRECT",
-  "DOMAIN-SUFFIX,bdimg.com,DIRECT",
-  "DOMAIN-SUFFIX,bdstatic.com,DIRECT",
-  "DOMAIN-SUFFIX,bilibili.com,DIRECT",
-  "DOMAIN-SUFFIX,bilivideo.com,DIRECT",
-  "DOMAIN-SUFFIX,caiyunapp.com,DIRECT",
-  "DOMAIN-SUFFIX,clouddn.com,DIRECT",
-  "DOMAIN-SUFFIX,cnbeta.com,DIRECT",
-  "DOMAIN-SUFFIX,cnbetacdn.com,DIRECT",
-  "DOMAIN-SUFFIX,cootekservice.com,DIRECT",
-  "DOMAIN-SUFFIX,csdn.net,DIRECT",
-  "DOMAIN-SUFFIX,ctrip.com,DIRECT",
-  "DOMAIN-SUFFIX,dgtle.com,DIRECT",
-  "DOMAIN-SUFFIX,dianping.com,DIRECT",
-  "DOMAIN-SUFFIX,douban.com,DIRECT",
-  "DOMAIN-SUFFIX,doubanio.com,DIRECT",
-  "DOMAIN-SUFFIX,duokan.com,DIRECT",
-  "DOMAIN-SUFFIX,easou.com,DIRECT",
-  "DOMAIN-SUFFIX,ele.me,DIRECT",
-  "DOMAIN-SUFFIX,feng.com,DIRECT",
-  "DOMAIN-SUFFIX,fir.im,DIRECT",
-  "DOMAIN-SUFFIX,frdic.com,DIRECT",
-  "DOMAIN-SUFFIX,g-cores.com,DIRECT",
-  "DOMAIN-SUFFIX,godic.net,DIRECT",
-  "DOMAIN-SUFFIX,gtimg.com,DIRECT",
-  "DOMAIN,cdn.hockeyapp.net,DIRECT",
-  "DOMAIN-SUFFIX,hongxiu.com,DIRECT",
-  "DOMAIN-SUFFIX,hxcdn.net,DIRECT",
-  "DOMAIN-SUFFIX,iciba.com,DIRECT",
-  "DOMAIN-SUFFIX,ifeng.com,DIRECT",
-  "DOMAIN-SUFFIX,ifengimg.com,DIRECT",
-  "DOMAIN-SUFFIX,ipip.net,DIRECT",
-  "DOMAIN-SUFFIX,iqiyi.com,DIRECT",
-  "DOMAIN-SUFFIX,jd.com,DIRECT",
-  "DOMAIN-SUFFIX,jianshu.com,DIRECT",
-  "DOMAIN-SUFFIX,knewone.com,DIRECT",
-  "DOMAIN-SUFFIX,le.com,DIRECT",
-  "DOMAIN-SUFFIX,lecloud.com,DIRECT",
-  "DOMAIN-SUFFIX,lemicp.com,DIRECT",
-  "DOMAIN-SUFFIX,licdn.com,DIRECT",
-  "DOMAIN-SUFFIX,luoo.net,DIRECT",
-  "DOMAIN-SUFFIX,meituan.com,DIRECT",
-  "DOMAIN-SUFFIX,meituan.net,DIRECT",
-  "DOMAIN-SUFFIX,mi.com,DIRECT",
-  "DOMAIN-SUFFIX,miaopai.com,DIRECT",
-  "DOMAIN-SUFFIX,miui.com,DIRECT",
-  "DOMAIN-SUFFIX,miwifi.com,DIRECT",
-  "DOMAIN-SUFFIX,mob.com,DIRECT",
-  "DOMAIN-SUFFIX,netease.com,DIRECT",
-  "DOMAIN-SUFFIX,oschina.net,DIRECT",
-  "DOMAIN-SUFFIX,ppsimg.com,DIRECT",
-  "DOMAIN-SUFFIX,pstatp.com,DIRECT",
-  "DOMAIN-SUFFIX,qcloud.com,DIRECT",
-  "DOMAIN-SUFFIX,qdaily.com,DIRECT",
-  "DOMAIN-SUFFIX,qdmm.com,DIRECT",
-  "DOMAIN-SUFFIX,qhimg.com,DIRECT",
-  "DOMAIN-SUFFIX,qhres.com,DIRECT",
-  "DOMAIN-SUFFIX,qidian.com,DIRECT",
-  "DOMAIN-SUFFIX,qihucdn.com,DIRECT",
-  "DOMAIN-SUFFIX,qiniu.com,DIRECT",
-  "DOMAIN-SUFFIX,qiniucdn.com,DIRECT",
-  "DOMAIN-SUFFIX,qiyipic.com,DIRECT",
-  "DOMAIN-SUFFIX,qq.com,DIRECT",
-  "DOMAIN-SUFFIX,qqurl.com,DIRECT",
-  "DOMAIN-SUFFIX,ruguoapp.com,DIRECT",
-  "DOMAIN-SUFFIX,segmentfault.com,DIRECT",
-  "DOMAIN-SUFFIX,sinaapp.com,DIRECT",
-  "DOMAIN-SUFFIX,smzdm.com,DIRECT",
-  "DOMAIN-SUFFIX,snapdrop.net,DIRECT",
-  "DOMAIN-SUFFIX,sogou.com,DIRECT",
-  "DOMAIN-SUFFIX,sogoucdn.com,DIRECT",
-  "DOMAIN-SUFFIX,sohu.com,DIRECT",
-  "DOMAIN-SUFFIX,soku.com,DIRECT",
-  "DOMAIN-SUFFIX,speedtest.net,DIRECT",
-  "DOMAIN-SUFFIX,sspai.com,DIRECT",
-  "DOMAIN-SUFFIX,suning.com,DIRECT",
-  "DOMAIN-SUFFIX,taobao.com,DIRECT",
-  "DOMAIN-SUFFIX,tencent.com,DIRECT",
-  "DOMAIN-SUFFIX,tenpay.com,DIRECT",
-  "DOMAIN-SUFFIX,tianyancha.com,DIRECT",
-  "DOMAIN-SUFFIX,tmall.com,DIRECT",
-  "DOMAIN-SUFFIX,tudou.com,DIRECT",
-  "DOMAIN-SUFFIX,umetrip.com,DIRECT",
-  "DOMAIN-SUFFIX,upaiyun.com,DIRECT",
-  "DOMAIN-SUFFIX,upyun.com,DIRECT",
-  "DOMAIN-SUFFIX,veryzhun.com,DIRECT",
-  "DOMAIN-SUFFIX,weather.com,DIRECT",
-  "DOMAIN-SUFFIX,weibo.com,DIRECT",
-  "DOMAIN-SUFFIX,xiami.com,DIRECT",
-  "DOMAIN-SUFFIX,xiami.net,DIRECT",
-  "DOMAIN-SUFFIX,xiaomicp.com,DIRECT",
-  "DOMAIN-SUFFIX,ximalaya.com,DIRECT",
-  "DOMAIN-SUFFIX,xmcdn.com,DIRECT",
-  "DOMAIN-SUFFIX,xunlei.com,DIRECT",
-  "DOMAIN-SUFFIX,yhd.com,DIRECT",
-  "DOMAIN-SUFFIX,yihaodianimg.com,DIRECT",
-  "DOMAIN-SUFFIX,yinxiang.com,DIRECT",
-  "DOMAIN-SUFFIX,ykimg.com,DIRECT",
-  "DOMAIN-SUFFIX,youdao.com,DIRECT",
-  "DOMAIN-SUFFIX,youku.com,DIRECT",
-  "DOMAIN-SUFFIX,zealer.com,DIRECT",
-  "DOMAIN-SUFFIX,zhihu.com,DIRECT",
-  "DOMAIN-SUFFIX,zhimg.com,DIRECT",
-  "DOMAIN-SUFFIX,zimuzu.tv,DIRECT",
-  "DOMAIN-SUFFIX,zoho.com,DIRECT",
-
-  // ===== Loyalsoldier 规则集 =====
-  "RULE-SET,applications,全局直连",
-  "RULE-SET,private,全局直连",
-  "RULE-SET,reject,广告过滤",
-  "RULE-SET,proxy,节点选择",
-  "RULE-SET,gfw,节点选择",
-  "RULE-SET,direct,全局直连",
-  "RULE-SET,lancidr,全局直连,no-resolve",
-  "RULE-SET,cncidr,全局直连,no-resolve",
-  "RULE-SET,telegramcidr,电报消息,no-resolve",
-
-  // ===== AI 服务 =====
-  "RULE-SET,kelee-ai,AI",
-
-  // ===== TikTok =====
-  "RULE-SET,kelee-tiktok,TikTok",
-
-  // ===== Netflix =====
-  "RULE-SET,kelee-netflix,Netflix",
-
-  // ===== Speedtest 国际版 =====
-  "RULE-SET,kelee-speedtest,Speedtest国际",
-
-  // ===== 游戏 =====
-  "RULE-SET,kelee-game,游戏选择",
-
-  // ===== ESET 中国 =====
-  "RULE-SET,kelee-eset,全局直连",
-
-  // ===== 广告过滤关键字 =====
-  "DOMAIN-KEYWORD,admarvel,广告过滤",
-  "DOMAIN-KEYWORD,admaster,广告过滤",
-  "DOMAIN-KEYWORD,adsage,广告过滤",
-  "DOMAIN-KEYWORD,adsmogo,广告过滤",
-  "DOMAIN-KEYWORD,adsrvmedia,广告过滤",
-  "DOMAIN-KEYWORD,adwords,广告过滤",
-  "DOMAIN-KEYWORD,adservice,广告过滤",
-  "DOMAIN-SUFFIX,appsflyer.com,广告过滤",
-  "DOMAIN-KEYWORD,domob,广告过滤",
-  "DOMAIN-SUFFIX,doubleclick.net,广告过滤",
-  "DOMAIN-KEYWORD,duomeng,广告过滤",
-  "DOMAIN-KEYWORD,dwtrack,广告过滤",
-  "DOMAIN-KEYWORD,guanggao,广告过滤",
-  "DOMAIN-KEYWORD,lianmeng,广告过滤",
-  "DOMAIN-SUFFIX,mmstat.com,广告过滤",
-  "DOMAIN-KEYWORD,mopub,广告过滤",
-  "DOMAIN-KEYWORD,omgmta,广告过滤",
-  "DOMAIN-KEYWORD,openx,广告过滤",
-  "DOMAIN-KEYWORD,partnerad,广告过滤",
-  "DOMAIN-KEYWORD,pingfore,广告过滤",
-  "DOMAIN-KEYWORD,supersonicads,广告过滤",
-  "DOMAIN-KEYWORD,uedas,广告过滤",
-  "DOMAIN-KEYWORD,umeng,广告过滤",
-  "DOMAIN-KEYWORD,usage,广告过滤",
-  "DOMAIN-SUFFIX,vungle.com,广告过滤",
-  "DOMAIN-KEYWORD,wlmonitor,广告过滤",
-  "DOMAIN-KEYWORD,zjtoolbar,广告过滤",
-
-  // ===== DOMAIN-KEYWORD 代理规则（补充 Loyalsoldier）=====
-  "DOMAIN-KEYWORD,amazon,节点选择",
-  "DOMAIN-KEYWORD,google,节点选择",
-  "DOMAIN-KEYWORD,gmail,节点选择",
-  "DOMAIN-KEYWORD,youtube,节点选择",
-  "DOMAIN-KEYWORD,facebook,节点选择",
-  "DOMAIN-SUFFIX,fb.me,节点选择",
-  "DOMAIN-SUFFIX,fbcdn.net,节点选择",
-  "DOMAIN-KEYWORD,twitter,节点选择",
-  "DOMAIN-KEYWORD,instagram,节点选择",
-  "DOMAIN-KEYWORD,dropbox,节点选择",
-  "DOMAIN-SUFFIX,twimg.com,节点选择",
-  "DOMAIN-KEYWORD,blogspot,节点选择",
-  "DOMAIN-SUFFIX,youtu.be,节点选择",
-  "DOMAIN-KEYWORD,whatsapp,节点选择",
-
-  // ===== Google CN IP 直连 =====
-  "IP-CIDR,120.232.181.162/32,全局直连,no-resolve",
-  "IP-CIDR,120.241.147.226/32,全局直连,no-resolve",
-  "IP-CIDR,120.253.253.226/32,全局直连,no-resolve",
-  "IP-CIDR,120.253.255.162/32,全局直连,no-resolve",
-  "IP-CIDR,120.253.255.34/32,全局直连,no-resolve",
-  "IP-CIDR,120.253.255.98/32,全局直连,no-resolve",
-  "IP-CIDR,180.163.150.162/32,全局直连,no-resolve",
-  "IP-CIDR,180.163.150.34/32,全局直连,no-resolve",
-  "IP-CIDR,180.163.151.162/32,全局直连,no-resolve",
-  "IP-CIDR,180.163.151.34/32,全局直连,no-resolve",
-  "IP-CIDR,203.208.39.0/24,全局直连,no-resolve",
-  "IP-CIDR,203.208.40.0/24,全局直连,no-resolve",
-  "IP-CIDR,203.208.41.0/24,全局直连,no-resolve",
-  "IP-CIDR,203.208.43.0/24,全局直连,no-resolve",
-  "IP-CIDR,203.208.50.0/24,全局直连,no-resolve",
-  "IP-CIDR,220.181.174.162/32,全局直连,no-resolve",
-  "IP-CIDR,220.181.174.226/32,全局直连,no-resolve",
-  "IP-CIDR,220.181.174.34/32,全局直连,no-resolve",
-
-  // ===== 其他规则 =====
+  // ===== 兜底规则 =====
   "GEOIP,LAN,全局直连,no-resolve",
   "GEOIP,CN,全局直连,no-resolve",
-  "GEOIP,google,谷歌服务,no-resolve",
-  "GEOIP,telegram,电报消息,no-resolve",
   "MATCH,漏网之鱼"
 ];
 
@@ -710,20 +431,6 @@ function main(config) {
     },
     {
       ...groupBaseOption,
-      "name": "谷歌服务",
-      "type": "select",
-      "proxies": ["节点选择", "DIRECT"],
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/google.svg"
-    },
-    {
-      ...groupBaseOption,
-      "name": "微软服务",
-      "type": "select",
-      "proxies": ["DIRECT", "节点选择"],
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/microsoft.svg"
-    },
-    {
-      ...groupBaseOption,
       "name": "苹果服务",
       "type": "select",
       "proxies": ["DIRECT", "节点选择"],
@@ -749,36 +456,15 @@ function main(config) {
       "type": "select",
       "proxies": ["节点选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
-    },
-    {
-      ...groupBaseOption,
-      "name": "TikTok",
-      "type": "select",
-      "proxies": ["节点选择", "DIRECT"],
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/tiktok.svg"
-    },
-    {
-      ...groupBaseOption,
-      "name": "Netflix",
-      "type": "select",
-      "proxies": ["🇺🇸 美国", "🇭🇰 香港", "🇯🇵 日本", "🇸🇬 新加坡", "节点选择", "DIRECT"],
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/netflix.svg"
-    },
-    {
-      ...groupBaseOption,
-      "name": "Speedtest国际",
-      "type": "select",
-      "proxies": ["节点选择", "DIRECT"],
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speedtest.svg"
-    },
-    {
-      ...groupBaseOption,
-      "name": "游戏选择",
-      "type": "select",
-      "proxies": ["DIRECT", "节点选择"],
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/game.svg"
     }
   ];
+
+  // 覆盖 GeoIP 数据源（统一使用 clash-rules-cn）
+  config["geox-url"] = {
+    "geoip": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/Country.mmdb",
+    "mmdb": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/Country.mmdb",
+    "asn": "https://cdn.jsdelivr.net/gh/mcxiaochenn/clash-rules-cn@rules/Country-asn.mmdb"
+  };
 
   // 覆盖规则集和规则
   config["rule-providers"] = ruleProviders;
