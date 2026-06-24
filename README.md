@@ -1,4 +1,4 @@
-# Clash Override Script For CN
+# Clash Override Script For CN / 适合中国宝宝体质的 Clash 覆写脚本
 
 基于 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) 的 mihomo (Clash Meta) 覆写脚本，适用于 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev)。
 
@@ -91,7 +91,7 @@ const directDomains = [
 ├── 🇯🇵 日本（自动选择，隐藏）
 ├── 🇺🇸 美国（自动选择，隐藏）
 ├── 🇰🇷 韩国（自动选择，隐藏）
-├── 🇹🇼 台湾（自动选择，隐藏）
+├── 🇨🇳 台湾（自动选择，隐藏）
 ├── 🇸🇬 新加坡（自动选择，隐藏）
 ├── 🇬🇧 英国（自动选择，隐藏）
 ├── 🇩🇪 德国（自动选择，隐藏）
