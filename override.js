@@ -77,7 +77,7 @@ const groupBaseOption = {
   "hidden": false
 };
 
-// 路由规则（白名单模式）
+// 路由规则
 const rules = [
   // 自定义规则
   "DOMAIN-SUFFIX,googleapis.cn,节点选择",
@@ -92,6 +92,22 @@ const rules = [
   "RULE-SET,lancidr,全局直连,no-resolve",
   "RULE-SET,cncidr,全局直连,no-resolve",
   "RULE-SET,telegramcidr,电报消息,no-resolve",
+  // AI 服务
+  "DOMAIN-SUFFIX,openai.com,AI",
+  "DOMAIN-SUFFIX,ai.com,AI",
+  "DOMAIN-SUFFIX,anthropic.com,AI",
+  "DOMAIN-SUFFIX,claude.ai,AI",
+  "DOMAIN-SUFFIX,gemini.google.com,AI",
+  "DOMAIN-SUFFIX,bard.google.com,AI",
+  "DOMAIN-SUFFIX,copilot.microsoft.com,AI",
+  "DOMAIN-SUFFIX,perplexity.ai,AI",
+  "DOMAIN-SUFFIX,midjourney.com,AI",
+  "DOMAIN-SUFFIX,stability.ai,AI",
+  "DOMAIN-SUFFIX,huggingface.co,AI",
+  "DOMAIN-SUFFIX,replicate.com,AI",
+  "DOMAIN-SUFFIX,together.ai,AI",
+  "DOMAIN-SUFFIX,cohere.com,AI",
+  "DOMAIN-SUFFIX,mistral.ai,AI",
   // 其他规则
   "GEOIP,LAN,全局直连,no-resolve",
   "GEOIP,CN,全局直连,no-resolve",
@@ -112,140 +128,168 @@ function main(config) {
 
   // 覆盖代理组
   config["proxy-groups"] = [
+    // 主选择组
     {
       ...groupBaseOption,
       "name": "节点选择",
       "type": "select",
-      "proxies": ["自动选择", "香港", "台湾", "日本", "新加坡", "美国", "英国", "其它地区", "全部节点", "DIRECT"],
+      "proxies": ["香港", "日本", "美国", "韩国", "台湾", "新加坡", "英国", "其它地区", "全部节点", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg"
     },
+    // 地区自动选择组（URLTest，隐藏）
     {
       ...groupBaseOption,
-      "name": "自动选择",
+      "name": "香港",
       "type": "url-test",
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg"
-    },
-    {
-      ...groupBaseOption,
-      "name": "香港",
-      "type": "select",
-      "include-all": true,
-      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)港|hk|hongkong|hong kong",
+      "hidden": true,
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/HK.png"
     },
     {
       ...groupBaseOption,
-      "name": "台湾",
-      "type": "select",
-      "include-all": true,
-      "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)台|tw|taiwan",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/TW.png"
-    },
-    {
-      ...groupBaseOption,
       "name": "日本",
-      "type": "select",
+      "type": "url-test",
+      "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
       "filter": "(?i)日|jp|japan",
+      "hidden": true,
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/JP.png"
     },
     {
       ...groupBaseOption,
-      "name": "新加坡",
-      "type": "select",
-      "include-all": true,
-      "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)新|sg|singapore",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/SG.png"
-    },
-    {
-      ...groupBaseOption,
       "name": "美国",
-      "type": "select",
+      "type": "url-test",
+      "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
       "filter": "(?i)美|us|unitedstates|united states",
+      "hidden": true,
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/US.png"
     },
     {
       ...groupBaseOption,
+      "name": "韩国",
+      "type": "url-test",
+      "tolerance": 100,
+      "include-all": true,
+      "exclude-filter": "直连|DIRECT",
+      "filter": "(?i)韩|kr|korea",
+      "hidden": true,
+      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/KR.png"
+    },
+    {
+      ...groupBaseOption,
+      "name": "台湾",
+      "type": "url-test",
+      "tolerance": 100,
+      "include-all": true,
+      "exclude-filter": "直连|DIRECT",
+      "filter": "(?i)台|tw|taiwan",
+      "hidden": true,
+      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/TW.png"
+    },
+    {
+      ...groupBaseOption,
+      "name": "新加坡",
+      "type": "url-test",
+      "tolerance": 100,
+      "include-all": true,
+      "exclude-filter": "直连|DIRECT",
+      "filter": "(?i)新|sg|singapore",
+      "hidden": true,
+      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/SG.png"
+    },
+    {
+      ...groupBaseOption,
       "name": "英国",
-      "type": "select",
+      "type": "url-test",
+      "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
       "filter": "(?i)英|uk|united kingdom|great britain",
+      "hidden": true,
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/UK.png"
     },
     {
       ...groupBaseOption,
       "name": "其它地区",
-      "type": "select",
+      "type": "url-test",
+      "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)^(?!.*(?:港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates|英|uk|united kingdom)).*",
+      "filter": "(?i)^(?!.*(?:港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates|韩|kr|korea|英|uk|united kingdom)).*",
+      "hidden": true,
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/Available.png"
     },
     {
       ...groupBaseOption,
       "name": "全部节点",
-      "type": "select",
+      "type": "url-test",
+      "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
+      "hidden": true,
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/Global.png"
+    },
+    // 服务分组
+    {
+      ...groupBaseOption,
+      "name": "AI",
+      "type": "select",
+      "proxies": ["美国", "节点选择", "香港", "日本", "新加坡", "DIRECT"],
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/chatgpt.svg"
     },
     {
       ...groupBaseOption,
       "name": "电报消息",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "DIRECT"],
+      "proxies": ["节点选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/telegram.svg"
     },
     {
       ...groupBaseOption,
       "name": "谷歌服务",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "DIRECT"],
+      "proxies": ["节点选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/google.svg"
     },
     {
       ...groupBaseOption,
       "name": "微软服务",
       "type": "select",
-      "proxies": ["DIRECT", "节点选择", "自动选择"],
+      "proxies": ["DIRECT", "节点选择"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/microsoft.svg"
     },
     {
       ...groupBaseOption,
       "name": "苹果服务",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "DIRECT"],
+      "proxies": ["节点选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/apple.svg"
     },
     {
       ...groupBaseOption,
       "name": "广告过滤",
       "type": "select",
-      "proxies": ["REJECT", "DIRECT"],
+      "proxies": ["DIRECT", "REJECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/bug.svg"
     },
     {
       ...groupBaseOption,
       "name": "全局直连",
       "type": "select",
-      "proxies": ["DIRECT", "节点选择", "自动选择"],
+      "proxies": ["DIRECT", "节点选择"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/link.svg"
     },
     {
       ...groupBaseOption,
       "name": "漏网之鱼",
       "type": "select",
-      "proxies": ["节点选择", "自动选择", "DIRECT"],
+      "proxies": ["节点选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
     }
   ];
