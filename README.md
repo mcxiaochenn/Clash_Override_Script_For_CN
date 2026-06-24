@@ -22,30 +22,30 @@
 
 ## 使用方式
 
-### 方式一：直接下载
-
-| 版本 | 下载链接 |
-|------|----------|
-| 最新稳定版 | [latest/mihomo-cn-override.js](latest/mihomo-cn-override.js) |
-| 最新每日版 | [daily/mihomo-cn-override.js](daily/mihomo-cn-override.js) |
-
-### 方式二：自动更新（推荐）
+### 方式一：自动更新（推荐）
 
 在 Clash Verge Rev 的覆写脚本配置中使用以下 URL，可自动获取最新版本，无需手动更新：
 
 **稳定版（推荐）：**
 
 ```
-https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/download/stable/mihomo-cn-override.js
+https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/download/stable/mihomo-cn-override-stable.js
 ```
 
 **每日版：**
 
 ```
-https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/download/daily/mihomo-cn-override.js
+https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/download/daily/mihomo-cn-override-daily.js
 ```
 
 > `stable` 和 `daily` 标签始终指向各自最新版本，配置一次即可永久自动更新。
+
+### 方式二：直接下载
+
+| 版本 | 下载链接 |
+|------|----------|
+| 最新稳定版 | [stable/mihomo-cn-override-stable.js](stable/mihomo-cn-override-stable.js) |
+| 最新每日版 | [daily/mihomo-cn-override-daily.js](daily/mihomo-cn-override-daily.js) |
 
 ### 方式三：手动导入
 

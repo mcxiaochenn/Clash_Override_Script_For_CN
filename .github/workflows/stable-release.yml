@@ -22,15 +22,12 @@ jobs:
       - name: Calculate version
         id: version
         run: |
-          # 获取当前日期（UTC）
           DATE=$(date -u +"%Y.%m.%d")
           echo "date=$DATE" >> $GITHUB_OUTPUT
 
-          # 查询当天已有的 stable 标签数量
           EXISTING=$(gh api repos/${{ github.repository }}/releases --paginate \
             --jq "[.[] | select(.tag_name | startswith(\"v${DATE}.r\"))] | length" 2>/dev/null || echo "0")
 
-          # 计算下一个版本号
           N=$((EXISTING + 1))
           VERSION="v${DATE}.r${N}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -56,24 +53,21 @@ jobs:
       - name: Get changelog
         id: changelog
         run: |
-          # 获取上一个 stable release 的 tag
           PREV_TAG=$(gh api repos/${{ github.repository }}/releases --paginate \
             --jq '[.[] | select(.tag_name | test("\\.r\\d+$"))] | .[0].tag_name' 2>/dev/null || echo "")
 
           if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "null" ]; then
             echo "changelog=Initial stable release" >> $GITHUB_OUTPUT
           else
-            # 生成 changelog
             LOG=$(git log ${PREV_TAG}..HEAD --oneline --no-merges | head -20)
             echo "changelog<<EOF" >> $GITHUB_OUTPUT
             echo "$LOG" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
-            echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Release
+      - name: Create versioned release (history)
         run: |
           gh release create "${{ steps.version.outputs.version }}" \
             --title "${{ steps.version.outputs.version }}" \
@@ -88,14 +82,23 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update stable tag
+      - name: Create / update stable release (auto-update)
         run: |
-          git tag -f stable
-          git push -f origin stable
+          cp mihomo-cn-override.js mihomo-cn-override-stable.js
+          gh release delete stable --yes --cleanup-tag 2>/dev/null || true
+          gh release create stable \
+            --title "stable (${{ steps.version.outputs.version }})" \
+            --notes "稳定版 ${{ steps.version.outputs.version }}
 
-      - name: Copy to latest folder
+          ${{ steps.changelog.outputs.changelog }}" \
+            --latest \
+            mihomo-cn-override-stable.js
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy to stable folder
         run: |
-          cp mihomo-cn-override.js latest/mihomo-cn-override.js
-          git add latest/
-          git diff --cached --quiet || git commit -m "chore: update latest snapshot to ${{ steps.version.outputs.version }}"
+          cp mihomo-cn-override.js stable/mihomo-cn-override-stable.js
+          git add stable/
+          git diff --cached --quiet || git commit -m "chore: update stable snapshot to ${{ steps.version.outputs.version }}"
           git push
