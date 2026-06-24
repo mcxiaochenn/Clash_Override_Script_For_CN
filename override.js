@@ -143,7 +143,6 @@ function main(config) {
       "name": "节点选择",
       "type": "select",
       "proxies": ["🇭🇰 香港", "🇯🇵 日本", "🇺🇸 美国", "🇰🇷 韩国", "🇨🇳 台湾", "🇸🇬 新加坡", "🇬🇧 英国", "🇩🇪 德国", "🇫🇷 法国", "🇮🇳 印度", "🇲🇴 澳门", "🇲🇾 马来西亚", "🇳🇱 荷兰", "🇱🇹 立陶宛", "其它地区", "全部节点", "DIRECT"],
-      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg"
     },
     // 地区自动选择组（URLTest，隐藏）
     {
@@ -156,7 +155,6 @@ function main(config) {
       "filter": "(?i)港|hk|hongkong|hong kong",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/HK.png"
     },
     {
       ...groupBaseOption,
@@ -168,7 +166,6 @@ function main(config) {
       "filter": "(?i)日|jp|japan",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/JP.png"
     },
     {
       ...groupBaseOption,
@@ -180,7 +177,6 @@ function main(config) {
       "filter": "(?i)美|us|unitedstates|united states",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/US.png"
     },
     {
       ...groupBaseOption,
@@ -192,7 +188,6 @@ function main(config) {
       "filter": "(?i)韩|kr|korea",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/KR.png"
     },
     {
       ...groupBaseOption,
@@ -204,7 +199,6 @@ function main(config) {
       "filter": "(?i)台|tw|taiwan",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/TW.png"
     },
     {
       ...groupBaseOption,
@@ -216,7 +210,6 @@ function main(config) {
       "filter": "(?i)新|sg|singapore",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/SG.png"
     },
     {
       ...groupBaseOption,
@@ -228,7 +221,6 @@ function main(config) {
       "filter": "(?i)英|uk|united kingdom|great britain",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/UK.png"
     },
     {
       ...groupBaseOption,
@@ -240,7 +232,6 @@ function main(config) {
       "filter": "(?i)德|de|germany",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/DE.png"
     },
     {
       ...groupBaseOption,
@@ -252,7 +243,6 @@ function main(config) {
       "filter": "(?i)法|fr|france",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/FR.png"
     },
     {
       ...groupBaseOption,
@@ -264,7 +254,6 @@ function main(config) {
       "filter": "(?i)印|in|india",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/IN.png"
     },
     {
       ...groupBaseOption,
@@ -276,7 +265,6 @@ function main(config) {
       "filter": "(?i)澳|mo|macau",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/MO.png"
     },
     {
       ...groupBaseOption,
@@ -288,7 +276,6 @@ function main(config) {
       "filter": "(?i)马来|my|malaysia",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/MY.png"
     },
     {
       ...groupBaseOption,
@@ -300,7 +287,6 @@ function main(config) {
       "filter": "(?i)荷|nl|netherlands",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/NL.png"
     },
     {
       ...groupBaseOption,
@@ -312,7 +298,6 @@ function main(config) {
       "filter": "(?i)立陶宛|lt|lithuania",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/LT.png"
     },
     {
       ...groupBaseOption,
@@ -324,7 +309,6 @@ function main(config) {
       "filter": "(?i)^(?!.*(?:港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates|韩|kr|korea|英|uk|united kingdom|德|de|germany|法|fr|france|印|in|india|澳|mo|macau|马来|my|malaysia|荷|nl|netherlands|立陶宛|lt|lithuania)).*",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/Available.png"
     },
     {
       ...groupBaseOption,
@@ -335,7 +319,6 @@ function main(config) {
       "exclude-filter": "直连|DIRECT",
       "hidden": true,
       "empty-fallback": "DIRECT",
-      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/Global.png"
     },
     // 服务分组
     {
