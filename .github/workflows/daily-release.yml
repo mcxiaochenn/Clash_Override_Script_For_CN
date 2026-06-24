@@ -81,6 +81,7 @@ jobs:
 
           ---
           > This is an automated daily build. For stable releases, use the \`stable\` tag." \
+            --prerelease \
             mihomo-cn-override.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
