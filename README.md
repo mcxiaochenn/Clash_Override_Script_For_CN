@@ -28,13 +28,24 @@
 
 **稳定版（推荐）：**
 
-- GitHub：`https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/latest/download/mihomo-cn-override.js`
-- CDN：`https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/latest/mihomo-cn-override-latest.js`
+GitHub：
+```
+https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/latest/download/mihomo-cn-override.js
+```
+
+CDN（国内推荐）：
+```
+https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/latest/mihomo-cn-override-latest.js
+```
 
 **每日版：**
 
-- GitHub：前往 [Releases](https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases) 页面下载 Pre-release 版本
-- CDN：`https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/daily/mihomo-cn-override-daily.js`
+GitHub：前往 [Releases](https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases) 页面下载 Pre-release 版本
+
+CDN（国内推荐）：
+```
+https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/daily/mihomo-cn-override-daily.js
+```
 
 > GitHub 稳定版 URL 始终指向 Latest 标记的版本；CDN URL 有缓存延迟。
 
