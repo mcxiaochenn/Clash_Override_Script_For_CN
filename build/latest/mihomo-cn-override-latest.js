@@ -3,10 +3,10 @@
 // 基于 mcxiaochenn/clash-rules-cn 的覆写脚本
 // 适用于 mihomo (Clash Meta) 内核 + Clash Verge Rev
 //
-// 版本：v2026.06.24.r3
+// 版本：v2026.06.25.01
 // 规则来源：mcxiaochenn/clash-rules-cn
 // 作者：辰渊尘(ChenDusk) — https://blog.mcxiaochen.top
-// 辅助：OpenCode + MiMo V2.5 Pro
+// 辅助：ClaudeCode
 // ============================================================================
 
 // ============================================================================
@@ -199,19 +199,23 @@ const rules = [
   ...directIPs.map(ip => `IP-CIDR,${ip},DIRECT,no-resolve`),
 
   // ===== clash-rules-cn 规则集 =====
-  "RULE-SET,common-software,全局直连",
-  "RULE-SET,private-domain,全局直连",
+  // 广告拦截
   "RULE-SET,reject-domain,广告过滤",
+  // 特定服务分流
   "RULE-SET,icloud-domain,苹果服务",
   "RULE-SET,apple-direct,苹果服务",
-  "RULE-SET,proxy-domain,节点选择",
-  "RULE-SET,gfwlist-domain,节点选择",
-  "RULE-SET,non-china-tld,节点选择",
+  "RULE-SET,ai-domain,AI",
+  "RULE-SET,telegram-ip,电报消息,no-resolve",
+  // 直连
+  "RULE-SET,common-software,全局直连",
+  "RULE-SET,private-domain,全局直连",
   "RULE-SET,direct-domain,全局直连",
   "RULE-SET,lan-reserved-ip,全局直连,no-resolve",
   "RULE-SET,china-ip,全局直连,no-resolve",
-  "RULE-SET,telegram-ip,电报消息,no-resolve",
-  "RULE-SET,ai-domain,AI",
+  // 代理
+  "RULE-SET,proxy-domain,节点选择",
+  "RULE-SET,gfwlist-domain,节点选择",
+  "RULE-SET,non-china-tld,节点选择",
 
   // ===== 兜底规则 =====
   "GEOIP,LAN,全局直连,no-resolve",
