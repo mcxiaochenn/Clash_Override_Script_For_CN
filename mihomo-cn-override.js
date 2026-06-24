@@ -733,7 +733,7 @@ function main(config) {
       ...groupBaseOption,
       "name": "广告过滤",
       "type": "select",
-      "proxies": ["DIRECT", "REJECT"],
+      "proxies": ["REJECT", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/bug.svg"
     },
     {
@@ -775,7 +775,7 @@ function main(config) {
       ...groupBaseOption,
       "name": "游戏选择",
       "type": "select",
-      "proxies": ["节点选择", "DIRECT"],
+      "proxies": ["DIRECT", "节点选择"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/game.svg"
     }
   ];
