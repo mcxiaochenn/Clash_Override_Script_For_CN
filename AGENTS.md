@@ -2,7 +2,7 @@
 
 ## What this is
 
-Single-file mihomo (Clash Meta) override script (`override.js`) for Clash Verge Rev. Uses Loyalsoldier/clash-rules via jsdelivr CDN. No build system, no tests, no dependencies.
+Single-file mihomo (Clash Meta) override script (`mihomo-cn-override.js`) for Clash Verge Rev. Uses Loyalsoldier/clash-rules via jsdelivr CDN. No build system, no tests, no dependencies.
 
 ## Key constraints
 

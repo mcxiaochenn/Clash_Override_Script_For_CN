@@ -1,0 +1,101 @@
+# 正式版发布（Stable Release）
+# 手动触发，发布正式稳定版本
+# 版本格式：vYYYY.MM.DD.rN
+
+name: Stable Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Calculate version
+        id: version
+        run: |
+          # 获取当前日期（UTC）
+          DATE=$(date -u +"%Y.%m.%d")
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+
+          # 查询当天已有的 stable 标签数量
+          EXISTING=$(gh api repos/${{ github.repository }}/releases --paginate \
+            --jq "[.[] | select(.tag_name | startswith(\"v${DATE}.r\"))] | length" 2>/dev/null || echo "0")
+
+          # 计算下一个版本号
+          N=$((EXISTING + 1))
+          VERSION="v${DATE}.r${N}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update version in script
+        run: |
+          sed -i "s|// 版本：.*|// 版本：${{ steps.version.outputs.version }}|" mihomo-cn-override.js
+
+      - name: Verify script syntax
+        run: node --check mihomo-cn-override.js
+
+      - name: Commit version change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add mihomo-cn-override.js
+          git diff --cached --quiet || git commit -m "chore: bump version to ${{ steps.version.outputs.version }}"
+          git push
+
+      - name: Get changelog
+        id: changelog
+        run: |
+          # 获取上一个 stable release 的 tag
+          PREV_TAG=$(gh api repos/${{ github.repository }}/releases --paginate \
+            --jq '[.[] | select(.tag_name | test("\\.r\\d+$"))] | .[0].tag_name' 2>/dev/null || echo "")
+
+          if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "null" ]; then
+            echo "changelog=Initial stable release" >> $GITHUB_OUTPUT
+          else
+            # 生成 changelog
+            LOG=$(git log ${PREV_TAG}..HEAD --oneline --no-merges | head -20)
+            echo "changelog<<EOF" >> $GITHUB_OUTPUT
+            echo "$LOG" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        run: |
+          gh release create "${{ steps.version.outputs.version }}" \
+            --title "${{ steps.version.outputs.version }}" \
+            --notes "## Stable Release ${{ steps.version.outputs.version }}
+
+          ## What's Changed
+          ${{ steps.changelog.outputs.changelog }}
+
+          ---
+          > This is a stable release. Use the \`stable\` tag URL for auto-updates." \
+            mihomo-cn-override.js
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update stable tag
+        run: |
+          git tag -f stable
+          git push -f origin stable
+
+      - name: Copy to latest folder
+        run: |
+          cp mihomo-cn-override.js latest/mihomo-cn-override.js
+          git add latest/
+          git diff --cached --quiet || git commit -m "chore: update latest snapshot to ${{ steps.version.outputs.version }}"
+          git push
