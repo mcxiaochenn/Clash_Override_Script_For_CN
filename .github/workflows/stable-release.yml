@@ -81,3 +81,11 @@ jobs:
             mihomo-cn-override.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update build/latest for CDN
+        run: |
+          mkdir -p build/latest
+          cp mihomo-cn-override.js build/latest/mihomo-cn-override-latest.js
+          git add build/latest/
+          git diff --cached --quiet || git commit -m "chore: update build/latest to ${{ steps.version.outputs.version }}"
+          git push

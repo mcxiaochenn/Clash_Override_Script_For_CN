@@ -83,3 +83,11 @@ jobs:
             mihomo-cn-override.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update build/daily for CDN
+        run: |
+          mkdir -p build/daily
+          cp mihomo-cn-override.js build/daily/mihomo-cn-override-daily.js
+          git add build/daily/
+          git diff --cached --quiet || git commit -m "chore: update build/daily to ${{ steps.version.outputs.version }}"
+          git push

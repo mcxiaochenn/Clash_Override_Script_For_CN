@@ -35,7 +35,7 @@ https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/latest/down
 **CDN 加速（国内推荐）：**
 
 ```
-https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/mihomo-cn-override.js
+https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/latest/mihomo-cn-override-latest.js
 ```
 
 > GitHub URL 始终指向 Latest 标记的稳定版；CDN URL 指向最新 commit，有缓存延迟。
