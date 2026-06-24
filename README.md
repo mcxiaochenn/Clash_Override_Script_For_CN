@@ -1,14 +1,15 @@
 # Clash Override Script For CN / 适合中国宝宝体质的 Clash 覆写脚本
 
-基于 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) 的 mihomo (Clash Meta) 覆写脚本，适用于 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev)。
+基于 [mcxiaochenn/clash-rules-cn](https://github.com/mcxiaochenn/clash-rules-cn) 的 mihomo (Clash Meta) 覆写脚本，适用于 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev)。
 
 ## 功能特性
 
-- 基于 Loyalsoldier/clash-rules 规则集（CDN 加速）
+- 基于 mcxiaochenn/clash-rules-cn 聚合规则集（CDN 加速）
 - 按地区自动分组：香港、日本、美国、韩国、台湾、新加坡、英国、德国、法国、印度、澳门、马来西亚、荷兰、立陶宛
 - AI 服务单独分组（OpenAI、Anthropic、Google Gemini 等，默认走美国节点）
 - 广告过滤默认关闭（可手动开启）
 - 支持用户自定义直连 IP/域名（Tailscale、WireGuard 等）
+- GeoIP 数据源统一使用 clash-rules-cn（Country.mmdb / Country-asn.mmdb）
 - 空节点组自动回退 DIRECT，不会报错
 
 ## 版本说明
@@ -117,8 +118,6 @@ const directDomains = [
 
 AI（默认美国）
 电报消息
-谷歌服务
-微软服务
 苹果服务
 广告过滤（默认关闭）
 全局直连
