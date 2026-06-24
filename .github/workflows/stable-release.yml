@@ -1,5 +1,5 @@
 # 正式版发布（Stable Release）
-# 手动触发，发布正式稳定版本
+# 手动触发，发布正式稳定版本并标记为 Latest
 # 版本格式：vYYYY.MM.DD.rN
 
 name: Stable Release
@@ -67,38 +67,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create versioned release (history)
+      - name: Create release (latest)
         run: |
           gh release create "${{ steps.version.outputs.version }}" \
             --title "${{ steps.version.outputs.version }}" \
             --notes "## Stable Release ${{ steps.version.outputs.version }}
 
-          ## What's Changed
           ${{ steps.changelog.outputs.changelog }}
 
           ---
-          > This is a stable release. Use the \`stable\` tag URL for auto-updates." \
+          > 这是正式稳定版本，已标记为 Latest。" \
+            --latest \
             mihomo-cn-override.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create / update stable release (auto-update)
-        run: |
-          cp mihomo-cn-override.js mihomo-cn-override-stable.js
-          gh release delete stable --yes --cleanup-tag 2>/dev/null || true
-          gh release create stable \
-            --title "stable (${{ steps.version.outputs.version }})" \
-            --notes "稳定版 ${{ steps.version.outputs.version }}
-
-          ${{ steps.changelog.outputs.changelog }}" \
-            --latest \
-            mihomo-cn-override-stable.js
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Copy to stable folder
-        run: |
-          cp mihomo-cn-override.js stable/mihomo-cn-override-stable.js
-          git add stable/
-          git diff --cached --quiet || git commit -m "chore: update stable snapshot to ${{ steps.version.outputs.version }}"
-          git push

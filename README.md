@@ -24,28 +24,20 @@
 
 ### 方式一：自动更新（推荐）
 
-在 Clash Verge Rev 的覆写脚本配置中使用以下 URL，可自动获取最新版本，无需手动更新：
-
-**稳定版（推荐）：**
+在 Clash Verge Rev 的覆写脚本配置中使用以下 URL，可自动获取最新稳定版，无需手动更新：
 
 ```
-https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/download/stable/mihomo-cn-override-stable.js
+https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/latest/download/mihomo-cn-override.js
 ```
 
-**每日版：**
+> 该 URL 始终指向 Latest 标记的稳定版，配置一次即可永久自动更新。
 
-```
-https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/download/daily/mihomo-cn-override-daily.js
-```
+### 方式二：手动下载
 
-> `stable` 和 `daily` 标签始终指向各自最新版本，配置一次即可永久自动更新。
+前往 [Releases](https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases) 页面下载对应版本：
 
-### 方式二：直接下载
-
-| 版本 | 下载链接 |
-|------|----------|
-| 最新稳定版 | [stable/mihomo-cn-override-stable.js](stable/mihomo-cn-override-stable.js) |
-| 最新每日版 | [daily/mihomo-cn-override-daily.js](daily/mihomo-cn-override-daily.js) |
+- **稳定版**（Latest 标记）：经过验证的正式版本
+- **每日版**（Pre-release 标记）：每日自动构建，包含最新功能
 
 ### 方式三：手动导入
 

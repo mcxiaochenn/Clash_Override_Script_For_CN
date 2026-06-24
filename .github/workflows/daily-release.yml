@@ -6,7 +6,6 @@ name: Daily Release
 
 on:
   schedule:
-    # UTC 0:00 = 北京时间 08:00
     - cron: '0 0 * * *'
   workflow_dispatch:
 
@@ -70,39 +69,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create versioned release (history)
+      - name: Create release
         run: |
           gh release create "${{ steps.version.outputs.version }}" \
             --title "${{ steps.version.outputs.version }}" \
             --notes "## Daily Build ${{ steps.version.outputs.version }}
 
-          ## What's Changed
           ${{ steps.changelog.outputs.changelog }}
 
           ---
-          > This is an automated daily build. For stable releases, use the \`stable\` tag." \
+          > 这是每日自动构建版本。稳定版请使用 Latest。" \
             --prerelease \
             mihomo-cn-override.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create / update daily release (auto-update)
-        run: |
-          cp mihomo-cn-override.js mihomo-cn-override-daily.js
-          gh release delete daily --yes --cleanup-tag 2>/dev/null || true
-          gh release create daily \
-            --title "daily (${{ steps.version.outputs.version }})" \
-            --notes "每日构建 ${{ steps.version.outputs.version }}
-
-          ${{ steps.changelog.outputs.changelog }}" \
-            --prerelease \
-            mihomo-cn-override-daily.js
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Copy to daily folder
-        run: |
-          cp mihomo-cn-override.js daily/mihomo-cn-override-daily.js
-          git add daily/
-          git diff --cached --quiet || git commit -m "chore: update daily snapshot to ${{ steps.version.outputs.version }}"
-          git push
