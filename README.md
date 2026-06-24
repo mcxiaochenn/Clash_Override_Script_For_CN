@@ -26,19 +26,17 @@
 
 在 Clash Verge Rev 的覆写脚本配置中使用以下 URL，可自动获取最新版本，无需手动更新：
 
-**GitHub 直连：**
+**稳定版（推荐）：**
 
-```
-https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/latest/download/mihomo-cn-override.js
-```
+- GitHub：`https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases/latest/download/mihomo-cn-override.js`
+- CDN：`https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/latest/mihomo-cn-override-latest.js`
 
-**CDN 加速（国内推荐）：**
+**每日版：**
 
-```
-https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/latest/mihomo-cn-override-latest.js
-```
+- GitHub：前往 [Releases](https://github.com/mcxiaochenn/Clash_Override_Script_For_CN/releases) 页面下载 Pre-release 版本
+- CDN：`https://cdn.jsdelivr.net/gh/mcxiaochenn/Clash_Override_Script_For_CN@latest/build/daily/mihomo-cn-override-daily.js`
 
-> GitHub URL 始终指向 Latest 标记的稳定版；CDN URL 指向最新 commit，有缓存延迟。
+> GitHub 稳定版 URL 始终指向 Latest 标记的版本；CDN URL 有缓存延迟。
 
 ### 方式二：手动下载
 
