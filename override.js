@@ -125,7 +125,7 @@ function main(config) {
       "type": "url-test",
       "tolerance": 100,
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg"
     },
     {
@@ -133,7 +133,7 @@ function main(config) {
       "name": "香港",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)港|hk|hongkong|hong kong",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/HK.png"
     },
@@ -142,7 +142,7 @@ function main(config) {
       "name": "台湾",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)台|tw|taiwan",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/TW.png"
     },
@@ -151,7 +151,7 @@ function main(config) {
       "name": "日本",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)日|jp|japan",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/JP.png"
     },
@@ -160,7 +160,7 @@ function main(config) {
       "name": "新加坡",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)新|sg|singapore",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/SG.png"
     },
@@ -169,7 +169,7 @@ function main(config) {
       "name": "美国",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)美|us|unitedstates|united states",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/US.png"
     },
@@ -178,7 +178,7 @@ function main(config) {
       "name": "英国",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)英|uk|united kingdom|great britain",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/UK.png"
     },
@@ -187,7 +187,7 @@ function main(config) {
       "name": "其它地区",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "filter": "(?i)^(?!.*(?:港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates|英|uk|united kingdom)).*",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/Available.png"
     },
@@ -196,7 +196,7 @@ function main(config) {
       "name": "全部节点",
       "type": "select",
       "include-all": true,
-      "exclude-type": "direct",
+      "exclude-filter": "直连|DIRECT",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure/master/IconSet/mini/Global.png"
     },
     {
