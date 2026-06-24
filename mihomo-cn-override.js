@@ -86,6 +86,14 @@ const ruleProviderCommon = {
   "interval": 86400
 };
 
+// kelee.one 规则集通用配置（YAML 格式）
+const keleeRuleProviderCommon = {
+  "type": "http",
+  "format": "yaml",
+  "behavior": "classical",
+  "interval": 86400
+};
+
 // 规则集
 const ruleProviders = {
   // 广告域名拦截
@@ -150,6 +158,44 @@ const ruleProviders = {
     "behavior": "classical",
     "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt",
     "path": "./ruleset/applications.yaml"
+  },
+
+  // ---- kelee.one 规则集 ----
+  // AI 服务规则
+  "kelee-ai": {
+    ...keleeRuleProviderCommon,
+    "url": "https://kelee.one/Tool/Clash/Rule/AI.yaml",
+    "path": "./ruleset/kelee-ai.yaml"
+  },
+  // TikTok 规则
+  "kelee-tiktok": {
+    ...keleeRuleProviderCommon,
+    "url": "https://kelee.one/Tool/Clash/Rule/TikTok.yaml",
+    "path": "./ruleset/kelee-tiktok.yaml"
+  },
+  // Speedtest 国际版规则
+  "kelee-speedtest": {
+    ...keleeRuleProviderCommon,
+    "url": "https://kelee.one/Tool/Clash/Rule/SpeedtestInternational.yaml",
+    "path": "./ruleset/kelee-speedtest.yaml"
+  },
+  // 游戏规则
+  "kelee-game": {
+    ...keleeRuleProviderCommon,
+    "url": "https://kelee.one/Tool/Clash/Rule/Game.yaml",
+    "path": "./ruleset/kelee-game.yaml"
+  },
+  // Netflix 规则
+  "kelee-netflix": {
+    ...keleeRuleProviderCommon,
+    "url": "https://rule.kelee.one/Clash/Netflix.yaml",
+    "path": "./ruleset/kelee-netflix.yaml"
+  },
+  // ESET 中国规则
+  "kelee-eset": {
+    ...keleeRuleProviderCommon,
+    "url": "https://kelee.one/Tool/Clash/Rule/ESET_China.yaml",
+    "path": "./ruleset/kelee-eset.yaml"
   }
 };
 
@@ -362,21 +408,22 @@ const rules = [
   "RULE-SET,telegramcidr,电报消息,no-resolve",
 
   // ===== AI 服务 =====
-  "DOMAIN-SUFFIX,openai.com,AI",
-  "DOMAIN-SUFFIX,ai.com,AI",
-  "DOMAIN-SUFFIX,anthropic.com,AI",
-  "DOMAIN-SUFFIX,claude.ai,AI",
-  "DOMAIN-SUFFIX,gemini.google.com,AI",
-  "DOMAIN-SUFFIX,bard.google.com,AI",
-  "DOMAIN-SUFFIX,copilot.microsoft.com,AI",
-  "DOMAIN-SUFFIX,perplexity.ai,AI",
-  "DOMAIN-SUFFIX,midjourney.com,AI",
-  "DOMAIN-SUFFIX,stability.ai,AI",
-  "DOMAIN-SUFFIX,huggingface.co,AI",
-  "DOMAIN-SUFFIX,replicate.com,AI",
-  "DOMAIN-SUFFIX,together.ai,AI",
-  "DOMAIN-SUFFIX,cohere.com,AI",
-  "DOMAIN-SUFFIX,mistral.ai,AI",
+  "RULE-SET,kelee-ai,AI",
+
+  // ===== TikTok =====
+  "RULE-SET,kelee-tiktok,TikTok",
+
+  // ===== Netflix =====
+  "RULE-SET,kelee-netflix,Netflix",
+
+  // ===== Speedtest 国际版 =====
+  "RULE-SET,kelee-speedtest,Speedtest国际",
+
+  // ===== 游戏 =====
+  "RULE-SET,kelee-game,游戏选择",
+
+  // ===== ESET 中国 =====
+  "RULE-SET,kelee-eset,全局直连",
 
   // ===== 广告过滤关键字 =====
   "DOMAIN-KEYWORD,admarvel,广告过滤",
@@ -478,7 +525,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)港|hk|hongkong|hong kong",
+      "filter": "(?i)(?=.*(?:港|hk|hongkong|hong kong))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -489,7 +536,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)日|jp|japan",
+      "filter": "(?i)(?=.*(?:日|jp|japan))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -500,7 +547,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)美|us|unitedstates|united states",
+      "filter": "(?i)(?=.*(?:美|us|unitedstates|united states))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -511,7 +558,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)韩|kr|korea",
+      "filter": "(?i)(?=.*(?:韩|kr|korea))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -522,7 +569,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)台|tw|taiwan",
+      "filter": "(?i)(?=.*(?:台|tw|taiwan))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -533,7 +580,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)新|sg|singapore",
+      "filter": "(?i)(?=.*(?:新|sg|singapore))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -544,7 +591,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)英|uk|united kingdom|great britain",
+      "filter": "(?i)(?=.*(?:英|uk|united kingdom|great britain))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -555,7 +602,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)德|de|germany",
+      "filter": "(?i)(?=.*(?:德|de|germany))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -566,7 +613,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)法|fr|france",
+      "filter": "(?i)(?=.*(?:法|fr|france))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -577,7 +624,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)印|in|india",
+      "filter": "(?i)(?=.*(?:印|in|india))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -588,7 +635,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)澳|mo|macau",
+      "filter": "(?i)(?=.*(?:澳|mo|macau))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -599,7 +646,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)马来|my|malaysia",
+      "filter": "(?i)(?=.*(?:马来|my|malaysia))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -610,7 +657,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)荷|nl|netherlands",
+      "filter": "(?i)(?=.*(?:荷|nl|netherlands))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -621,7 +668,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)立陶宛|lt|lithuania",
+      "filter": "(?i)(?=.*(?:立陶宛|lt|lithuania))(?!.*(?:回国|校园|游戏|🎮|GAME))",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -632,7 +679,7 @@ function main(config) {
       "tolerance": 100,
       "include-all": true,
       "exclude-filter": "直连|DIRECT",
-      "filter": "(?i)^(?!.*(?:港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates|韩|kr|korea|英|uk|united kingdom|德|de|germany|法|fr|france|印|in|india|澳|mo|macau|马来|my|malaysia|荷|nl|netherlands|立陶宛|lt|lithuania)).*",
+      "filter": "(?i)^(?!.*(?:港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates|韩|kr|korea|英|uk|united kingdom|德|de|germany|法|fr|france|印|in|india|澳|mo|macau|马来|my|malaysia|荷|nl|netherlands|立陶宛|lt|lithuania|回国|校园|游戏|🎮|GAME)).*",
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
@@ -702,6 +749,34 @@ function main(config) {
       "type": "select",
       "proxies": ["节点选择", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "TikTok",
+      "type": "select",
+      "proxies": ["节点选择", "DIRECT"],
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/tiktok.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "Netflix",
+      "type": "select",
+      "proxies": ["🇺🇸 美国", "🇭🇰 香港", "🇯🇵 日本", "🇸🇬 新加坡", "节点选择", "DIRECT"],
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/netflix.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "Speedtest国际",
+      "type": "select",
+      "proxies": ["节点选择", "DIRECT"],
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speedtest.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "游戏选择",
+      "type": "select",
+      "proxies": ["节点选择", "DIRECT"],
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/game.svg"
     }
   ];
 
