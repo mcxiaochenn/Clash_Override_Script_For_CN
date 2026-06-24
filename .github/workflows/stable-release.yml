@@ -1,6 +1,6 @@
 # 正式版发布（Stable Release）
 # 手动触发，发布正式稳定版本并标记为 Latest
-# 版本格式：vYYYY.MM.DD.rN
+# 版本格式：vYYYY.MM.DD.NB（Shanghai 时区，NB 每日重置）
 
 name: Stable Release
 
@@ -22,14 +22,14 @@ jobs:
       - name: Calculate version
         id: version
         run: |
-          DATE=$(date -u +"%Y.%m.%d")
+          DATE=$(TZ=Asia/Shanghai date +"%Y.%m.%d")
           echo "date=$DATE" >> $GITHUB_OUTPUT
 
           EXISTING=$(gh api repos/${{ github.repository }}/releases --paginate \
-            --jq "[.[] | select(.tag_name | startswith(\"v${DATE}.r\"))] | length" 2>/dev/null || echo "0")
+            --jq "[.[] | select(.tag_name | startswith(\"v${DATE}.\"))] | length" 2>/dev/null || echo "0")
 
-          N=$((EXISTING + 1))
-          VERSION="v${DATE}.r${N}"
+          NB=$(printf "%02d" $((EXISTING + 1)))
+          VERSION="v${DATE}.${NB}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
         env:
@@ -54,7 +54,7 @@ jobs:
         id: changelog
         run: |
           PREV_TAG=$(gh api repos/${{ github.repository }}/releases --paginate \
-            --jq '[.[] | select(.tag_name | test("\\.r\\d+$"))] | .[0].tag_name' 2>/dev/null || echo "")
+            --jq '[.[] | select(.prerelease == false)] | .[0].tag_name' 2>/dev/null || echo "")
 
           if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "null" ]; then
             echo "changelog=Initial stable release" >> $GITHUB_OUTPUT
@@ -67,7 +67,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release (latest)
+      - name: Create release
         run: |
           gh release create "${{ steps.version.outputs.version }}" \
             --title "${{ steps.version.outputs.version }}" \

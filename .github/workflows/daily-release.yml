@@ -1,13 +1,10 @@
 # 每日自动发布（Daily Release）
-# 每天 UTC 0:00 自动构建并发布每日版
-# 版本格式：vYYYY.MM.DD.dN
+# 每天北京时间 8:00（UTC 0:00）自动构建并发布每日版
+# 版本格式：vYYYY.MM.DD.NB（Shanghai 时区，NB 每日重置）
 
 name: Daily Release
 
 on:
-  push:
-    branches:
-      - main
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
@@ -27,14 +24,14 @@ jobs:
       - name: Calculate version
         id: version
         run: |
-          DATE=$(date -u +"%Y.%m.%d")
+          DATE=$(TZ=Asia/Shanghai date +"%Y.%m.%d")
           echo "date=$DATE" >> $GITHUB_OUTPUT
 
           EXISTING=$(gh api repos/${{ github.repository }}/releases --paginate \
-            --jq "[.[] | select(.tag_name | startswith(\"v${DATE}.d\"))] | length" 2>/dev/null || echo "0")
+            --jq "[.[] | select(.tag_name | startswith(\"v${DATE}.\"))] | length" 2>/dev/null || echo "0")
 
-          N=$((EXISTING + 1))
-          VERSION="v${DATE}.d${N}"
+          NB=$(printf "%02d" $((EXISTING + 1)))
+          VERSION="v${DATE}.${NB}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
         env:
@@ -59,7 +56,7 @@ jobs:
         id: changelog
         run: |
           PREV_TAG=$(gh api repos/${{ github.repository }}/releases --paginate \
-            --jq '[.[] | select(.tag_name | test("\\.d\\d+$"))] | .[0].tag_name' 2>/dev/null || echo "")
+            --jq '[.[] | select(.prerelease)] | .[0].tag_name' 2>/dev/null || echo "")
 
           if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "null" ]; then
             echo "changelog=Initial release" >> $GITHUB_OUTPUT
