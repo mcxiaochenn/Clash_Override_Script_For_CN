@@ -3,7 +3,7 @@
 // 基于 mcxiaochenn/clash-rules-cn 的覆写脚本
 // 适用于 mihomo (Clash Meta) 内核 + Clash Verge Rev
 //
-// 版本：v2026.06.28.01
+// 版本：v2026.06.29.01
 // 规则来源：mcxiaochenn/clash-rules-cn
 // 作者：辰渊尘(ChenDusk) — https://blog.mcxiaochen.top
 // 辅助：ClaudeCode
@@ -198,7 +198,7 @@ const rules = [
   ...directDomains.map(domain => `DOMAIN-SUFFIX,${domain},DIRECT`),
   ...directIPs.map(ip => `IP-CIDR,${ip},DIRECT,no-resolve`),
 
-  // ===== clash-rules-cn 规则集 =====
+  // ===== 黑名单模式 — 直连优先，仅命中代理规则走代理 =====
   // 广告拦截
   "RULE-SET,reject-domain,广告过滤",
   // 特定服务分流
@@ -206,7 +206,7 @@ const rules = [
   "RULE-SET,apple-direct,苹果服务",
   "RULE-SET,ai-domain,AI",
   "RULE-SET,telegram-ip,电报消息,no-resolve",
-  // 直连
+  // 直连（优先匹配，放在代理前面）
   "RULE-SET,common-software,全局直连",
   "RULE-SET,private-domain,全局直连",
   "RULE-SET,direct-domain,全局直连",
