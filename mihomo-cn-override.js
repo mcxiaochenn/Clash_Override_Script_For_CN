@@ -3,7 +3,7 @@
 // 基于 mcxiaochenn/clash-rules-cn 的覆写脚本
 // 适用于 mihomo (Clash Meta) 内核 + Clash Verge Rev
 //
-// 版本：v2026.07.20.01
+// 版本：v2026.07.21.01
 // 规则来源：mcxiaochenn/clash-rules-cn
 // 作者：辰渊尘(ChenDusk) — https://blog.mcxiaochen.top
 // 辅助：ClaudeCode
