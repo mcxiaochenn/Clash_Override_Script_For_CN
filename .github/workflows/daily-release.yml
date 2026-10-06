@@ -12,12 +12,16 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: daily-release
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -27,15 +31,16 @@ jobs:
           DATE=$(TZ=Asia/Shanghai date +"%Y.%m.%d")
           echo "date=$DATE" >> $GITHUB_OUTPUT
 
-          EXISTING=$(gh api repos/${{ github.repository }}/releases --paginate \
-            --jq "[.[] | select(.tag_name | startswith(\"v${DATE}.\"))] | length" 2>/dev/null || echo "0")
+          # 用本地 tag 计数。此前用 gh api --paginate + jq 聚合：--paginate 会对每一页
+          # 各输出一次 jq 结果，仓库 release 数超过单页上限后 EXISTING 变成多行字符串，
+          # 导致 $((EXISTING + 1)) 报 syntax error in expression 并使整个 job 失败。
+          EXISTING=$(git tag -l "v${DATE}.*" | wc -l | tr -d '[:space:]')
+          EXISTING=${EXISTING:-0}
 
           NB=$(printf "%02d" $((EXISTING + 1)))
           VERSION="v${DATE}.${NB}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update version in script
         run: |
@@ -55,13 +60,15 @@ jobs:
       - name: Get changelog
         id: changelog
         run: |
-          PREV_TAG=$(gh api repos/${{ github.repository }}/releases --paginate \
+          # 单页查询即可拿到最新的 prerelease：releases 按创建时间倒序返回，
+          # 因此不需要 --paginate，否则多页会各返回一个 .[0].tag_name
+          PREV_TAG=$(gh api "repos/${{ github.repository }}/releases?per_page=100" \
             --jq '[.[] | select(.prerelease)] | .[0].tag_name' 2>/dev/null || echo "")
 
           if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "null" ]; then
             echo "changelog=Initial release" >> $GITHUB_OUTPUT
           else
-            LOG=$(git log ${PREV_TAG}..HEAD --oneline --no-merges | head -20)
+            LOG=$(git log "${PREV_TAG}..HEAD" --oneline --no-merges | head -20)
             echo "changelog<<EOF" >> $GITHUB_OUTPUT
             echo "$LOG" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
