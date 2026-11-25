@@ -198,6 +198,16 @@ const rules = [
   ...directDomains.map(domain => `DOMAIN-SUFFIX,${domain},DIRECT`),
   ...directIPs.map(ip => `IP-CIDR,${ip},DIRECT,no-resolve`),
 
+  // ===== Google / Play 商店下载链路（必须放在所有 RULE-SET 之前）=====
+  // direct-domain（中国直连表）与 proxy-domain（需代理表）存在重叠条目，
+  // 而 direct-domain 匹配在前，会把这些域名抢成直连，
+  // 表现就是 Play 商店「浏览正常、下载/更新失败」。这里显式钉死走代理。
+  "DOMAIN-SUFFIX,gvt1.com,节点选择",            // APK 下载跳转 redirector.gvt1.com + 内容 CDN
+  "DOMAIN-SUFFIX,android.clients.google.com,节点选择",
+  "DOMAIN-SUFFIX,c.android.clients.google.com,节点选择",
+  "DOMAIN-SUFFIX,dl.google.com,节点选择",
+  "DOMAIN-KEYWORD,mtalk.google.com,节点选择",   // FCM 推送，被 reject-domain 误判成广告
+
   // ===== 黑名单模式 — 直连优先，仅命中代理规则走代理 =====
   // 广告拦截
   "RULE-SET,reject-domain,广告过滤",
