@@ -32,8 +32,8 @@
 //   /32 = 1 个 IP    /24 = 256 个 IP    /16 = 65536 个 IP    /8 = 1677 万个 IP
 //
 // ▶ 域名格式说明：
-//   - 完整域名：  "example.com"        → 只匹配 example.com
-//   - 带子域名：  "+.example.com"      → 匹配 example.com 及所有子域名（如 a.example.com）
+//   - "example.com"   → 匹配 example.com 及所有子域名（如 a.example.com）
+//   - "+.example.com" → 同上（兼容 Clash 规则集的 +. 写法，前缀会自动忽略）
 //
 // ============================================================================
 
@@ -195,7 +195,9 @@ const groupBaseOption = {
 // 路由规则
 const rules = [
   // ===== 用户自定义直连规则 =====
-  ...directDomains.map(domain => `DOMAIN-SUFFIX,${domain},DIRECT`),
+  // 注意：DOMAIN-SUFFIX 本身就是「本域 + 所有子域」的后缀匹配，
+  // 所以这里必须剥掉 Clash 规则集风格的 "+." 前缀，否则规则会变成字面量永不命中。
+  ...directDomains.map(domain => `DOMAIN-SUFFIX,${domain.replace(/^\+\./, "")},DIRECT`),
   ...directIPs.map(ip => `IP-CIDR,${ip},DIRECT,no-resolve`),
 
   // ===== Google / Play 商店下载链路（必须放在所有 RULE-SET 之前）=====
@@ -203,6 +205,7 @@ const rules = [
   // 而 direct-domain 匹配在前，会把这些域名抢成直连，
   // 表现就是 Play 商店「浏览正常、下载/更新失败」。这里显式钉死走代理。
   "DOMAIN-SUFFIX,gvt1.com,节点选择",            // APK 下载跳转 redirector.gvt1.com + 内容 CDN
+  "DOMAIN-SUFFIX,gvt1-cn.com,全局直连",         // Google 国内 CDN 镜像（证书 *.google.cn），被 reject-domain 误判成广告
   "DOMAIN-SUFFIX,android.clients.google.com,节点选择",
   "DOMAIN-SUFFIX,c.android.clients.google.com,节点选择",
   "DOMAIN-SUFFIX,dl.google.com,节点选择",
