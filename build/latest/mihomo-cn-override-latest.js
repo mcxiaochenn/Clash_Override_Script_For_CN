@@ -3,7 +3,7 @@
 // 基于 mcxiaochenn/clash-rules-cn 的覆写脚本
 // 适用于 mihomo (Clash Meta) 内核 + Clash Verge Rev
 //
-// 版本：v2026.11.25.03
+// 版本：v2026.11.26.03
 // 规则来源：mcxiaochenn/clash-rules-cn
 // 作者：辰渊尘(ChenDusk) — https://blog.mcxiaochen.top
 // 辅助：ClaudeCode
@@ -253,7 +253,7 @@ function main(config) {
       ...groupBaseOption,
       "name": "节点选择",
       "type": "select",
-      "proxies": ["🇭🇰 香港", "🇯🇵 日本", "🇺🇸 美国", "🇰🇷 韩国", "🇨🇳 台湾", "🇸🇬 新加坡", "🇬🇧 英国", "🇩🇪 德国", "🇫🇷 法国", "🇮🇳 印度", "🇲🇴 澳门", "🇲🇾 马来西亚", "🇳🇱 荷兰", "🇱🇹 立陶宛", "其它地区", "全部节点", "DIRECT"],
+      "proxies": ["🇭🇰 香港", "🇯🇵 日本", "🇺🇸 美国", "🇰🇷 韩国", "🇨🇳 台湾", "🇸🇬 新加坡", "🇬🇧 英国", "🇩🇪 德国", "🇫🇷 法国", "🇮🇳 印度", "🇲🇴 澳门", "🇲🇾 马来西亚", "🇳🇱 荷兰", "🇱🇹 立陶宛", "其它地区", "固定节点", "全部节点", "DIRECT"],
     },
     // 地区自动选择组（URLTest，隐藏）
     {
@@ -431,12 +431,22 @@ function main(config) {
       "hidden": true,
       "empty-fallback": "DIRECT",
     },
+    // 手动固定单个节点（select，不做测速，选中哪个就用哪个）
+    // 挂在「节点选择」和「AI」下，两个组各自独立固定，互不干扰
+    {
+      ...groupBaseOption,
+      "name": "固定节点",
+      "type": "select",
+      "include-all": true,
+      "exclude-filter": "直连|DIRECT",
+      "empty-fallback": "DIRECT",
+    },
     // 服务分组
     {
       ...groupBaseOption,
       "name": "AI",
       "type": "select",
-      "proxies": ["🇺🇸 美国", "🇭🇰 香港", "🇯🇵 日本", "🇸🇬 新加坡", "节点选择", "DIRECT"],
+      "proxies": ["🇺🇸 美国", "🇭🇰 香港", "🇯🇵 日本", "🇸🇬 新加坡", "节点选择", "固定节点", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/chatgpt.svg"
     },
     {
